@@ -21,7 +21,7 @@ jobs:
     steps:
       - run: /opt/python/${{ matrix.PYTHON }}/bin/python -m virtualenv .venv
       - name: Install Python dependencies
-        run: .venv/bin/pip install -U pip wheel cffi six ipaddress "enum34; python_version < '3'"
+        run: .venv/bin/pip install -U pip wheel cffi ipaddress
       - run: .venv/bin/pip download cryptography==${{ github.event.inputs.version }} --no-deps --no-binary cryptography && tar zxvf cryptography*.tar.gz && mkdir tmpwheelhouse
       - run: |
           REGEX="cp3([0-9])*"
@@ -77,7 +77,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: ${{ matrix.PYTHON.BIN_PATH }} -m virtualenv venv
-      - run: venv/bin/pip install -U pip wheel cffi six ipaddress "enum34; python_version < '3'"
+      - run: venv/bin/pip install -U pip wheel cffi ipaddress
       - run: venv/bin/pip download cryptography==${{ github.event.inputs.version }} --no-deps --no-binary cryptography && tar zxvf cryptography*.tar.gz && mkdir wheelhouse
       - name: Build the wheel
         run: |
@@ -124,7 +124,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
 
-      - run: python -m pip install -U pip wheel cffi six ipaddress "enum34; python_version < '3'"
+      - run: python -m pip install -U pip wheel cffi ipaddress
       - run: pip download cryptography==${{ github.event.inputs.version }} --no-deps --no-binary cryptography && tar zxvf cryptography*.tar.gz && mkdir wheelhouse
         shell: bash
       - run: cd cryptography* && python setup.py bdist_wheel --py-limited-api=${{ matrix.PYTHON.ABI_VERSION }} && mv dist/cryptography*.whl ../wheelhouse
