@@ -2,12 +2,6 @@ name: CI
 on:
   pull_request: {}
   push:
-    branches:
-      - master
-      - '*.*.x'
-    tags:
-      - '*.*'
-      - '*.*.*'
 
 jobs:
   linux:
